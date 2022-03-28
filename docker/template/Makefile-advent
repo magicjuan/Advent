@@ -1,0 +1,85 @@
+.PHONY: all depends clean
+
+all: bin/adv350 bin/adv430  bin/adv440  bin/adv501  bin/adv550  bin/adv551
+
+bin:
+	mkdir bin
+
+# 350
+KNUT0350/advent:
+	cd KNUT0350; make
+
+bin/adv350: bin KNUT0350/advent
+	cp KNUT0350/advent bin/adv350
+
+
+# 430
+WOOD0430/adv430:
+	cd WOOD0430; make
+
+bin/adventure.text:
+	cp WOOD0430/adventure.text bin/adventure.text
+
+bin/adv430: bin WOOD0430/adv430 bin/adventure.text
+	cp WOOD0430/adv430 bin/adv430
+
+
+
+# 440
+LUPI0440/adv440:
+	cd LUPI0440; make
+
+bin/advII.dat: LUPI0440/advII.dat
+	cp LUPI0440/advII.dat bin/advII.dat
+
+bin/adv440: bin LUPI0440/adv440 bin/advII.dat
+	cp LUPI0440/adv440 bin/adv440
+
+
+
+# 501
+HALL0501/advent:
+	cd HALL0501; make
+
+bin/advent1.dat:
+	cp HALL0501/advent*.dat bin/
+
+bin/adv501: bin HALL0501/advent bin/advent1.dat bin/advent2.dat bin/advent3.dat bin/advent4.dat
+	cp HALL0501/advent bin/adv501
+
+
+
+# 550
+PLAT0550/adv550:
+	cd PLAT0550; make
+
+bin/ADVINIT1.DAT:
+	cp PLAT0550/ADVINIT*.DAT bin/
+
+bin/adv550: bin PLAT0550/adv550 bin/ADVINIT1.DAT
+	cp PLAT0550/adv550 bin/adv550
+
+
+# 551
+MCDO0551/adv551:
+	cd MCDO0551; make
+
+bin/ADVDAT:
+	cp MCDO0551/ADVDAT bin/
+
+bin/ADVTXT:
+	cp MCDO0551/ADVTXT bin/
+
+bin/adv551: bin MCDO0551/adv551 bin/ADVDAT bin/ADVTXT
+	cp MCDO0551/adv551 bin/adv551
+
+depends: KNUT0350/advent WOOD0430/adv430 LUPI0440/adv440 HALL0501/advent PLAT0550/adv550 MCDO0551/adv551
+
+clean:
+	rm -rf bin
+	cd KNUT0350; make clean
+	cd WOOD0430; make clean
+	cd LUPI0440; make clean
+	cd HALL0501; make clean
+	cd PLAT0550; make clean
+	cd MCDO0551; make clean
